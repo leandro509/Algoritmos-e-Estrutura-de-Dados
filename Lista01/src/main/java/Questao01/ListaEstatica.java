@@ -29,18 +29,20 @@ public class ListaEstatica {
     public void inserir(int valor) {
         if (tamanho == info.length) {
             redimensionar();
-        } 
+        }
         info[tamanho] = valor;
         tamanho++;
     }
 
     public void exibir() {
-        System.out.println(toString());
+        for (int i = 0; i < tamanho; i++) {
+            System.out.println(info[i]);
+        }
     }
 
     public int buscar(int valor) {
 
-        for (int i = 0; i < info.length; i++) {
+        for (int i = 0; i < tamanho; i++) {
             if (info[i] == valor) {
                 return i;
             }
@@ -49,18 +51,20 @@ public class ListaEstatica {
     }
 
     public void retirar(int valor) {
-        int contador = 0;
-        for (int i = 0; i < info.length; i++) {
-            contador++;
+
+        int posicao = buscar(valor);
+        
+        for (int i = 0; i < tamanho; i++) {
             if (info[i] == valor) {
-                tamanho--;
-                for (int j = i; j < info.length - 1; j++) {
+                for (int j = i; j < tamanho - 1; j++) {
                     info[j] = info[j + 1];
                 }
-            break;
+                tamanho--;
+
+                break;
             }
         }
-        
+
     }
 
     public void liberar() {
@@ -74,22 +78,22 @@ public class ListaEstatica {
         }
 
     }
-    
-    public int obterElemento(int posicao){
-        if(posicao > tamanho || posicao == 0 ) {
+
+    public int obterElemento(int posicao) {
+        if (posicao > tamanho || posicao == 0) {
             throw new IndexOutOfBoundsException("Posicao Invalido");
         }
         return info[posicao];
     }
 
     public boolean estaVazia() {
-        if(info[0] == 0 ) {
+        if (info[0] == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-    
+
     public int getTamanho() {
         return tamanho;
     }
@@ -97,19 +101,14 @@ public class ListaEstatica {
     @Override
     public String toString() {
         String numeros = "";
-        for(int i = 0; i < info.length; i++) {
-            if(info[i] == 0) {
+        for (int i = 0; i < tamanho; i++) {
+            if (info[i] == 0) {
                 break;
             }
             numeros += info[i] + ",";
-        } 
-        String semUltimaVirgula = numeros.substring(0,numeros.length() - 1);
+        }
+        String semUltimaVirgula = numeros.substring(0, numeros.length() - 1);
         return semUltimaVirgula;
     }
-    
-    
-    
-    
-    
-    
+
 }
