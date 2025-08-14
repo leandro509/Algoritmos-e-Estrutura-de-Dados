@@ -4,8 +4,6 @@
  */
 package Questao02;
 
-import Questao01.*;
-
 /**
  *
  * @author leandro
@@ -55,7 +53,7 @@ public class ListaEstatica<ClasseEnviadaComoParametro> {
     public void retirar(ClasseEnviadaComoParametro valor) {
 
         Object posicao = buscar(valor);
-        
+
         for (int i = 0; i < tamanho; i++) {
             if (info[i] == valor) {
                 for (int j = i; j < tamanho - 1; j++) {
@@ -82,10 +80,10 @@ public class ListaEstatica<ClasseEnviadaComoParametro> {
     }
 
     public ClasseEnviadaComoParametro obterElemento(int posicao) {
-        
+
         if (posicao >= 0 && (posicao < tamanho)) {
             return (ClasseEnviadaComoParametro) info[posicao];
-        }else {
+        } else {
             throw new IndexOutOfBoundsException("Posicao Invalido");
         }
     }
@@ -105,14 +103,34 @@ public class ListaEstatica<ClasseEnviadaComoParametro> {
     @Override
     public String toString() {
         String numeros = "";
+        String semUltimaVirgula = "";
         for (int i = 0; i < tamanho; i++) {
             if (info[i] == null) {
                 break;
             }
             numeros += info[i] + ",";
         }
-        String semUltimaVirgula = numeros.substring(0, numeros.length() - 1);
+
+        if (numeros.endsWith(",")) {
+            semUltimaVirgula = numeros.substring(0, numeros.length() - 1);
+        }
         return semUltimaVirgula;
+    }
+
+    public void inverter() {
+        int reversaoLista = tamanho - 1;
+        int guardarTamanhoInicial = tamanho;
+        int adicionarNumeros = 2 * tamanho;
+        
+        for (int i = tamanho; i < adicionarNumeros; i++) {
+           inserir((ClasseEnviadaComoParametro) info[reversaoLista]);
+           reversaoLista--;
+        }
+        
+        for(int i = 0; i < guardarTamanhoInicial; i++) {
+            retirar((ClasseEnviadaComoParametro) info[i]);
+        }
+        
     }
 
 }
