@@ -22,7 +22,7 @@ public class ListaEncadeada<T> {
     }
 
     public void inserir(T valor) {
-        NoLista novo = new NoLista();
+        NoLista<T> novo = new NoLista<>();
         novo.setInfo(valor);
         novo.setProximo(primeiro);
         this.primeiro = novo;
@@ -39,17 +39,13 @@ public class ListaEncadeada<T> {
     }
 
     public boolean estaVazia() {
-        if (primeiro == null) {
-            return true;
-        } else {
-            return false;
-        }
+      return this.primeiro == null;
     }
 
     public NoLista<T> buscar(T valor) {
         NoLista<T> p = primeiro;
         while (p != null) {
-            if (p.getInfo() == valor) {
+            if (p.getInfo().equals(valor)) {
                 return p;
             }
             p = p.getProximo();
@@ -61,7 +57,7 @@ public class ListaEncadeada<T> {
         NoLista<T> anterior = null;
         NoLista<T> p = primeiro;
 
-        while ((p != null) && (p.getInfo() != valor)) {
+        while ((p != null) && (!p.getInfo().equals(valor))) {
             anterior = p;
             p = p.getProximo();
         }
@@ -88,7 +84,22 @@ public class ListaEncadeada<T> {
     }
     
     public NoLista<T> obterNo(int idx) {
+        if((idx < 0) || (idx >= obterComprimento())) {
+            throw new IndexOutOfBoundsException();
+        }
         
+        NoLista<T> p = primeiro;
+        int sequencia = 0;
+        while((p != null) && ((sequencia < idx))) {
+            sequencia++;
+            p = p.getProximo();
+        }
+        
+        if(p == null) {
+            throw new IndexOutOfBoundsException();
+        }
+        
+        return p;
     }
 
 }
