@@ -89,6 +89,7 @@ public class PilhaVetorTest {
         pilha1.push(30);
         pilha1.liberar();
         assertEquals(true, pilha1.estaVazia());
+        System.out.println(pilha1.toString());
     }
     
     @Test
@@ -104,5 +105,6 @@ public class PilhaVetorTest {
         pilha1.concatenar(pilha2);
         
         assertEquals("50,40,30,20,10", pilha1.toString());
+        assertEquals("50,40", pilha2.toString());
     }
 }
