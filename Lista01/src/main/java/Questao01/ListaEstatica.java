@@ -8,25 +8,25 @@ package Questao01;
  *
  * @author leandro
  */
-public class ListaEstatica {
+public class ListaEstatica<T> {
 
-    private int[] info;
+    private Object[] info;
     private int tamanho;
 
     public ListaEstatica() {
-        info = new int[10];
+        info = new Object[10];
         tamanho = 0;
     }
 
     private void redimensionar() {
-        int[] novo = new int[info.length + 10];
+        Object[] novo = new Object[info.length + 10];
         for (int i = 0; i < info.length; i++) {
             novo[i] = info[i];
         }
         info = novo;
     }
 
-    public void inserir(int valor) {
+    public void inserir(T valor) {
         if (tamanho == info.length) {
             redimensionar();
         }
@@ -40,19 +40,19 @@ public class ListaEstatica {
         }
     }
 
-    public int buscar(int valor) {
+    public int buscar(T valor) {
 
         for (int i = 0; i < tamanho; i++) {
-            if (info[i] == valor) {
+            if (info[i].equals(valor)) {
                 return i;
             }
         }
         return -1;
     }
 
-    public void retirar(int valor) {
+    public void retirar(T valor) {
 
-        int posicao = buscar(valor);
+        Object posicao = buscar(valor);
         
         for (int i = 0; i < tamanho; i++) {
             if (info[i] == valor) {
@@ -69,7 +69,7 @@ public class ListaEstatica {
 
     public void liberar() {
         while (info.length != 10) {
-            int[] novo = new int[info.length - 10];
+            Object[] novo = new Object[info.length - 10];
             info = novo;
         }
 
@@ -79,15 +79,17 @@ public class ListaEstatica {
 
     }
 
-    public int obterElemento(int posicao) {
-        if (posicao > tamanho || posicao == 0) {
+    public T obterElemento(int posicao) {
+        
+        if (posicao >= 0 && (posicao < tamanho)) {
+            return (T) info[posicao];
+        }else {
             throw new IndexOutOfBoundsException("Posicao Invalido");
         }
-        return info[posicao];
     }
 
     public boolean estaVazia() {
-        if (info[0] == 0) {
+        if (info[0] == null) {
             return true;
         } else {
             return false;
@@ -102,7 +104,7 @@ public class ListaEstatica {
     public String toString() {
         String numeros = "";
         for (int i = 0; i < tamanho; i++) {
-            if (info[i] == 0) {
+            if (info[i] == null) {
                 break;
             }
             numeros += info[i] + ",";
