@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package lista3.Questao01;
+package lista03;
 
 /**
  *
@@ -39,7 +39,7 @@ public class ListaEncadeada<T> {
     }
 
     public boolean estaVazia() {
-      return this.primeiro == null;
+        return this.primeiro == null;
     }
 
     public NoLista<T> buscar(T valor) {
@@ -70,36 +70,51 @@ public class ListaEncadeada<T> {
             }
         }
     }
-    
+
     public int obterComprimento() {
         int tamanho = 0;
-        
+
         NoLista<T> p = primeiro;
 
         while (p != null) {
             p = p.getProximo();
             tamanho++;
-        }   
+        }
         return tamanho;
     }
-    
+
     public NoLista<T> obterNo(int idx) {
-        if((idx < 0) || (idx >= obterComprimento())) {
+        if ((idx < 0) || (idx >= obterComprimento())) {
             throw new IndexOutOfBoundsException();
         }
-        
+
         NoLista<T> p = primeiro;
         int sequencia = 0;
-        while((p != null) && ((sequencia < idx))) {
+        while ((p != null) && ((sequencia < idx))) {
             sequencia++;
             p = p.getProximo();
         }
-        
-        if(p == null) {
+
+        if (p == null) {
             throw new IndexOutOfBoundsException();
         }
-        
+
         return p;
+    }
+
+    @Override
+    public String toString() {
+        NoLista<T> p = primeiro;
+        String lista = "";
+       
+        while(p.getProximo() != null) {
+            lista += p.getInfo() + ",";
+            p = p.getProximo();
+        }
+        
+        lista += p.getInfo();
+
+        return lista;
     }
 
 }
